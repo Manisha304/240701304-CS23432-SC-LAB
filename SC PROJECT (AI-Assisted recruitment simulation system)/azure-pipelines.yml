@@ -1,5 +1,4 @@
-trigger:
-- main
+trigger: none   # Pipeline will NOT run automatically on commit
 
 pool:
   vmImage: ubuntu-latest
