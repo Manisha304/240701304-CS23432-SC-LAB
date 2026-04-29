@@ -1,33 +1,27 @@
 trigger:
-- main   # Trigger pipeline when changes are pushed to the main branch
+- main
 
 pool:
-  vmImage: ubuntu-latest   # Use a hosted Ubuntu agent
+  vmImage: ubuntu-latest
 
 steps:
-
-# Step 1: Checkout the code from GitHub
 - checkout: self
 
-# Step 2: Set up Node.js environment
-- task: NodeTool@0
+- task: UseNode@1
   inputs:
-    versionSpec: '18.x'
+    version: '18.x'
   displayName: "Set up Node.js"
 
-# Step 3: Install dependencies (fast)
 - script: |
     cd "SC PROJECT (AI-Assisted recruitment simulation system)"
     npm install --prefer-offline --no-audit --progress=false
   displayName: "Install dependencies"
 
-# Step 4: Run a simple Node.js script to verify pipeline success
 - script: |
     cd "SC PROJECT (AI-Assisted recruitment simulation system)"
     node -e "console.log('✅ AI-Assisted Recruitment Simulation Pipeline Executed Successfully!')"
   displayName: "Run Test Script"
 
-# Step 5: Publish project as artifact (optional but useful for proof)
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: 'SC PROJECT (AI-Assisted recruitment simulation system)'
